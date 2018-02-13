@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AJAX Day 01</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<style>
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 5px;
+}
+</style>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid class-center">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">AJAX Day 01</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid text-center">
+        <h1>The XMLHttpRequest Object</h1>
+        <button type="button" onclick="loadDoc()">My Songs</button>
+    <br>
+    <br>
+        <div class="container">
+            <table class="table" id="content"></table>
+        </div>
+    </div>
+
+    <script>
+    function loadDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                myFunction(this);
+            }
+        };
+        xhttp.open("GET", "songs.xml", true);
+        xhttp.send();
+    }
+
+    function myFunction(xml) {
+        var i;
+        var xmlDoc = xml.responseXML;
+        var table = '<thead><tr><th>Artist</th><th>Title</th><th>Country</th><th>Ganre</th><th>Year</th></tr></thead>';
+        var x = xmlDoc.getElementsByTagName("song");
+        for (i = 0; i < x.length; i++) {
+            table += "<tbody><tr><td>" +
+                x[i].getElementsByTagName("artist")[0].childNodes[0].nodeValue +
+                "</td><td>" +
+                x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+                "</td><td>" + 
+                x[i].getElementsByTagName("country")[0].childNodes[0].nodeValue +
+                "</td><td>" +
+                x[i].getElementsByTagName("genre")[0].childNodes[0].nodeValue +
+                "</td><td>" + 
+                x[i].getElementsByTagName("year")[0].childNodes[0].nodeValue +
+                "</td></tr></tbody>";
+        }
+        document.getElementById("content").innerHTML = table;
+    }
+    </script>
+</body>
+</html>
