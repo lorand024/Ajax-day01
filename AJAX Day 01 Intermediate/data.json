@@ -1,0 +1,8 @@
+myObj = {
+
+        "name": "Tanja",
+        "surname": "Kosic",
+        "age": 26,
+        "some": "Lorem Ipsum",
+        "other": "Ipsum Dolar"
+        };
